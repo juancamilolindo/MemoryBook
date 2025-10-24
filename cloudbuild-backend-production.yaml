@@ -1,18 +1,5 @@
 steps:
-    # DEBUG: Listar paquetes instalados
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'List Installed Packages'
-    args:
-      - 'run'
-      - '--rm'
-      - 'my-backend-builder:latest'
-      - 'pip'
-      - 'list'
-    dir: 'backend'
 
-  # 3. Ejecutar las pruebas unitarias dentro de la imagen de la etapa 'builder'.
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'Run Unit Tests'
     
   # 1. Construir la etapa 'builder' del Dockerfile.
   - name: 'gcr.io/cloud-builders/docker'
@@ -36,6 +23,17 @@ steps:
       - 'sh'
       - '-c'
       - 'ruff check . && ruff format --check .'
+    dir: 'backend'
+
+  # DEBUG: Listar paquetes instalados
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'List Installed Packages'
+    args:
+      - 'run'
+      - '--rm'
+      - 'my-backend-builder:latest'
+      - 'pip'
+      - 'list'
     dir: 'backend'
 
   # 3. Ejecutar las pruebas unitarias dentro de la imagen de la etapa 'builder'.
