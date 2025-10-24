@@ -11,7 +11,19 @@ steps:
       - 'builder'
     dir: 'backend'
 
-  # 2. Ejecutar las pruebas unitarias dentro de la imagen de la etapa 'builder'.
+  # 2. Ejecutar el linter (Ruff)
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Run Linter'
+    args:
+      - 'run'
+      - '--rm'
+      - 'my-backend-builder:latest'
+      - 'sh'
+      - '-c'
+      - 'ruff check . && ruff format --check .'
+    dir: 'backend'
+
+  # 3. Ejecutar las pruebas unitarias dentro de la imagen de la etapa 'builder'.
   - name: 'gcr.io/cloud-builders/docker'
     id: 'Run Unit Tests'
     args:
@@ -27,7 +39,7 @@ steps:
 
   # --- Si los tests pasan, Cloud Build continúa con la compilación para el despliegue. ---
 
-  # 3. Construir la imagen de Docker final para el despliegue.
+  # 4. Construir la imagen de Docker final para el despliegue.
   - name: 'gcr.io/cloud-builders/docker'
     id: 'Build Final Docker Image'
     args:
@@ -38,7 +50,7 @@ steps:
       - '.'
     dir: 'backend'
 
-  # 4. Empujar la imagen final a Artifact Registry.
+  # 5. Empujar la imagen final a Artifact Registry.
   - name: 'gcr.io/cloud-builders/docker'
     id: 'Push Final Docker Image'
     args:
@@ -46,7 +58,7 @@ steps:
       - '${_AR_HOSTNAME}/${_AR_PROJECT_ID}/${_AR_REPOSITORY}/${REPO_NAME}/${_SERVICE_NAME}:${SHORT_SHA}'
     dir: 'backend'
 
-  # 5. Desplegar la nueva versión del servicio de Cloud Run.
+  # 6. Desplegar la nueva versión del servicio de Cloud Run.
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     id: 'Deploy to Cloud Run Production'
     entrypoint: gcloud

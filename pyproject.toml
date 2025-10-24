@@ -1,0 +1,28 @@
+[tool.ruff]
+# Set a line length
+line-length = 88
+
+# Exclude common directories that you don't want to lint
+exclude = [
+    ".git",
+    ".gitignore",
+    ".ruff_cache",
+    ".venv",
+    "__pypackages__",
+    "build",
+    "dist",
+    "docs", # Excluding docs folder
+    "frontend", # Excluding frontend folder
+]
+
+[tool.ruff.lint]
+# Enable a good default set of rules
+# E = pycodestyle errors
+# F = Pyflakes
+# W = pycodestyle warnings
+# I = isort (import sorting)
+# C90 = McCabe complexity
+select = ["E", "F", "W", "I", "C90"]
+
+# Ignore some rules if needed (example)
+# ignore = ["E501"]
