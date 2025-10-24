@@ -4,11 +4,12 @@ FROM python:3.12-slim as builder
 
 WORKDIR /app
 COPY requirements.txt .
+COPY requirements-dev.txt .
 
-# 1. Instala todas las dependencias
-RUN pip install --no-cache-dir -r requirements.txt
+# 1. Instala TODAS las dependencias (dev + prod) para la etapa de pruebas y linter
+RUN pip install --no-cache-dir -r requirements-dev.txt
 
-# Quitamos --no-deps para asegurar que todo se empaquete bien
+# 2. Crea los wheels SOLO de las dependencias de producción para la imagen final
 RUN pip wheel --no-cache-dir --wheel-dir /app/wheels -r requirements.txt
 
 COPY ./app ./app

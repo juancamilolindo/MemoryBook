@@ -1,0 +1,6 @@
+# Dependencias de tests y desarrollo
+pytest
+pytest-cov
+ruff
+httpx
+pre-commit

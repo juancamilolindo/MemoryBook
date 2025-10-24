@@ -23,9 +23,3 @@ python-dotenv
 
 # Autenticación JWT
 python-jose[cryptography]
-
-# Dependencias de tests
-pytest 
-pytest-cov
-ruff
-httpx
