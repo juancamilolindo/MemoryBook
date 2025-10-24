@@ -25,17 +25,6 @@ steps:
       - 'ruff check . && ruff format --check .'
     dir: 'backend'
 
-  # DEBUG: Listar paquetes instalados
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'List Installed Packages'
-    args:
-      - 'run'
-      - '--rm'
-      - 'my-backend-builder:latest'
-      - 'pip'
-      - 'list'
-    dir: 'backend'
-
   # 3. Ejecutar las pruebas unitarias dentro de la imagen de la etapa 'builder'.
   - name: 'gcr.io/cloud-builders/docker'
     id: 'Run Unit Tests'
