@@ -1,16 +1,67 @@
-# React + Vite
+# Frontend de MemoryBook
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Esta carpeta contiene la aplicación de React para MemoryBook, creada con Vite.
 
-Currently, two official plugins are available:
+## Cómo empezar (Entorno de Desarrollo)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Sigue estos pasos para configurar y ejecutar el proyecto de frontend en tu máquina local.
 
-## React Compiler
+### Prerrequisitos
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Asegúrate de tener instalados los siguientes programas en tu sistema:
 
-## Expanding the ESLint configuration
+*   [Node.js](https://nodejs.org/) (versión 20 o superior), que incluye `npm`.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 1. Instalar Dependencias
+
+Si es la primera vez que trabajas en el frontend, necesitas instalar sus dependencias.
+
+```bash
+# Navega a la carpeta del frontend
+cd frontend
+
+# Instala todas las dependencias listadas en package.json
+npm install
+```
+
+### 2. Ejecutar el Servidor de Desarrollo
+
+Este comando inicia un servidor local con recarga en caliente (`hot-reloading`), que es ideal para desarrollar.
+
+```bash
+# Desde la carpeta /frontend, ejecuta:
+npm run dev
+```
+La aplicación estará disponible en la dirección que te indique la terminal (normalmente `http://localhost:5173`).
+
+### 3. Ejecutar Linter
+
+Para asegurar la calidad del código, puedes ejecutar el linter manualmente.
+
+```bash
+# Ejecuta ESLint para encontrar problemas en el código
+npm run lint
+```
+
+### 4. Construir la Versión de Producción
+
+Este comando empaqueta y optimiza la aplicación para producción. El resultado se genera en la carpeta `dist/`.
+
+```bash
+npm run build
+```
+
+### 5. Despliegue Manual (Opcional)
+
+Aunque el despliegue a producción está automatizado, a veces es útil hacer un despliegue manual. Como `firebase-tools` se instala como una dependencia de desarrollo, puedes usar `npx` para ejecutar los comandos.
+
+```bash
+# 1. Si es la primera vez, inicia sesión en Firebase
+# firebase login
+
+# 2. Construye la aplicación para producción
+npm run build
+
+# 3. Despliega los cambios en Firebase Hosting
+npx firebase deploy --only hosting
+```
