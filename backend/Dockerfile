@@ -4,6 +4,7 @@ FROM python:3.12-slim as builder
 
 WORKDIR /app
 COPY requirements.txt .
+COPY ./app ./app
 
 # 1. Instala las dependencias (incluyendo pytest) para la etapa de pruebas
 RUN pip install --no-cache-dir -r requirements.txt
