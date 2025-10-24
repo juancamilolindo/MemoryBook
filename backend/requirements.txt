@@ -1,3 +1,29 @@
+# Servidor de producción y desarrollo
+gunicorn
+uvicorn
+
+# Framework web
+fastapi
+pydantic-settings
+pytz
+
+# Base de Datos
+PyMySQL
+SQLAlchemy
+alembic
+# Si los usas directamente, agrégalos aquí.
+
+# Autenticación de Google (si tu app la necesita)
+google-auth
+google-auth-httplib2
+google-auth-oauthlib
+
+# Para leer variables de entorno del archivo .env
+python-dotenv
+
+# Autenticación JWT
+python-jose[cryptography]
+
 # Dependencias de tests
 pytest 
 pytest-cov

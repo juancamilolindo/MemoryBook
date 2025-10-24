@@ -17,6 +17,9 @@ COPY ./app ./app
 # Construye la imagen final de producción
 FROM python:3.12-slim
 
+# Crear un usuario y grupo no root
+RUN groupadd -r appuser && useradd --no-create-home -r -g appuser appuser
+
 WORKDIR /app
 
 # Copiamos las dependencias y el código
@@ -25,6 +28,9 @@ COPY ./app .
 
 # Como ROOT, instalamos todo en el sistema
 RUN pip install --no-cache-dir /wheels/*
+
+# Cambiar al usuario no root
+USER appuser
 
 # Exponemos el puerto
 EXPOSE 8080
