@@ -4,20 +4,18 @@ FROM python:3.12-slim as builder
 
 WORKDIR /app
 COPY requirements.txt .
-COPY ./app ./app
 
-# 1. Instala las dependencias (incluyendo pytest) para la etapa de pruebas
+# 1. Instala todas las dependencias
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 2. Crea los wheels para la imagen final
+# Quitamos --no-deps para asegurar que todo se empaquete bien
 RUN pip wheel --no-cache-dir --wheel-dir /app/wheels -r requirements.txt
+
+COPY ./app ./app
 
 # ---- Fase 2: Final ----
 # Construye la imagen final de producción
 FROM python:3.12-slim
-
-# Crear un usuario y grupo no root
-RUN groupadd -r appuser && useradd --no-create-home -r -g appuser appuser
 
 WORKDIR /app
 
@@ -27,9 +25,6 @@ COPY ./app .
 
 # Como ROOT, instalamos todo en el sistema
 RUN pip install --no-cache-dir /wheels/*
-
-# Cambiar al usuario no root
-USER appuser
 
 # Exponemos el puerto
 EXPOSE 8080

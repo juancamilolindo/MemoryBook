@@ -18,7 +18,7 @@ steps:
       - 'run'
       - '--rm'
       - '-e'
-      - 'PYTHONPATH=/app'
+      - 'PYTHONPATH=/app/app'
       - 'my-backend-builder:latest'
       - 'python'
       - '-m'
