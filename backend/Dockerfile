@@ -5,7 +5,10 @@ FROM python:3.12-slim as builder
 WORKDIR /app
 COPY requirements.txt .
 
-# Quitamos --no-deps para asegurar que todo se empaquete bien
+# 1. Instala las dependencias (incluyendo pytest) para la etapa de pruebas
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 2. Crea los wheels para la imagen final
 RUN pip wheel --no-cache-dir --wheel-dir /app/wheels -r requirements.txt
 
 # ---- Fase 2: Final ----
