@@ -61,6 +61,7 @@ export default [
     language: "json/jsonc",
     rules: {
       "json/no-duplicate-keys": "error",
+      "no-irregular-whitespace": "off",
     },
   },
   prettierConfig,
