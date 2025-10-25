@@ -5,12 +5,18 @@ import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import eslintCss from "@eslint/css";
+import eslintJson from "@eslint/json";
 
 export default [
   {
     ignores: ["dist/"],
   },
   js.configs.recommended,
+  {
+    plugins: {
+      json: eslintJson,
+    },
+  },
   {
     files: ["**/*.{js,jsx}"],
     plugins: {
@@ -48,6 +54,13 @@ export default [
     },
     rules: {
       ...eslintCss.configs.recommended.rules,
+    },
+  },
+  {
+    files: ["**/*.json", "**/*.jsonc"],
+    language: "json/jsonc",
+    rules: {
+      "json/no-duplicate-keys": "error",
     },
   },
   prettierConfig,
