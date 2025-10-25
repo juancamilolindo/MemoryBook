@@ -19,6 +19,7 @@ repos:
         language: node
         types: [text]
         files: ^frontend/
+        exclude: \.prettierignore$
 
       - id: eslint
         name: eslint
@@ -26,3 +27,4 @@ repos:
         language: node
         types: [javascript]
         files: ^frontend/
+        exclude: \.prettierignore$
