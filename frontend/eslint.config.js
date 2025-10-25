@@ -47,15 +47,7 @@ export default [
       "react/react-in-jsx-scope": "off",
     },
   },
-  {
-    files: ["**/*.css"],
-    plugins: {
-      css: eslintCss,
-    },
-    rules: {
-      ...eslintCss.configs.recommended.rules,
-    },
-  },
+  eslintCss.configs.recommended,
   {
     files: ["**/*.json", "**/*.jsonc"],
     language: "json/jsonc",
