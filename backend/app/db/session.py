@@ -1,0 +1,44 @@
+# app/db/session.py
+# Importamos nuestra configuración centralizada
+from core.config import settings
+from sqlalchemy import create_engine
+from sqlalchemy.engine.url import URL
+from sqlalchemy.orm import sessionmaker
+
+# Extraemos la lógica de si estamos en Cloud Run
+IS_CLOUD_RUN = settings.K_SERVICE is not None
+
+# Construimos la URL de conexión y los argumentos del motor
+connect_args_for_engine = {}
+if IS_CLOUD_RUN:
+    # Conexión para Cloud Run usando Socket Unix
+    # Los argumentos de conexión se pasan a través de la query de la URL
+    connect_args = {"unix_socket": f"/cloudsql/{settings.DB_HOST_CLOUD}"}
+    engine_url = URL.create(
+        drivername="mysql+pymysql",
+        username=settings.DB_USER,
+        password=settings.DB_PASSWORD,
+        database=settings.DB_NAME,
+        query=connect_args,
+    )
+else:
+    # Conexión para desarrollo local
+    engine_url = URL.create(
+        drivername="mysql+pymysql",
+        username=settings.DB_USER,
+        password=settings.DB_PASSWORD,
+        host=settings.DB_HOST,
+        port=int(settings.DB_PORT),
+        database=settings.DB_NAME,
+    )
+    # Para conexiones remotas (no Cloud Run), especificamos SSL
+    connect_args_for_engine = {"ssl": {"fake_flag": True}}
+
+
+# Creamos el motor de SQLAlchemy
+engine = create_engine(
+    engine_url, pool_pre_ping=True, connect_args=connect_args_for_engine
+)
+
+# Creamos la fábrica de sesiones
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

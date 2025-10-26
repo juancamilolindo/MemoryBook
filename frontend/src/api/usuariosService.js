@@ -51,13 +51,3 @@ export async function updateUsuario(id, userUpdateData) {
   const response = await authApi.put(`/usuarios/${id}`, userUpdateData);
   return response.data;
 }
-
-/**
- * Gets a list of users for a specific station.
- * @param {number} stationId - The ID of the station.
- * @returns {Promise<Array>} A promise that resolves to an array of user objects.
- */
-export async function getUsuariosByEstacion(stationId) {
-  const response = await authApi.get(`/usuarios/by_estacion/${stationId}`);
-  return response.data;
-}
