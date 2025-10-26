@@ -7,13 +7,8 @@ import authApi from "./authApi";
  * @returns {Promise<Array>} A promise that resolves to an array of user objects.
  */
 export async function getUsuarios() {
-  try {
-    const response = await authApi.get("/usuarios/");
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching users:", error);
-    throw error;
-  }
+  const response = await authApi.get("/usuarios/");
+  return response.data;
 }
 
 /**
@@ -22,13 +17,8 @@ export async function getUsuarios() {
  * @returns {Promise<object>} A promise that resolves to the user object.
  */
 export async function getUsuarioByEmail(email) {
-  try {
-    const response = await authApi.get(`/usuarios/by_email/${email}`);
-    return response.data;
-  } catch (error) {
-    console.error(`Error fetching user by email ${email}:`, error);
-    throw error;
-  }
+  const response = await authApi.get(`/usuarios/by_email/${email}`);
+  return response.data;
 }
 
 /**
@@ -37,13 +27,8 @@ export async function getUsuarioByEmail(email) {
  * @returns {Promise<object>} A promise that resolves to the created user object.
  */
 export async function createUsuario(userData) {
-  try {
-    const response = await authApi.post("/usuarios/", userData);
-    return response.data;
-  } catch (error) {
-    console.error("Error creating user:", error);
-    throw error;
-  }
+  const response = await authApi.post("/usuarios/", userData);
+  return response.data;
 }
 
 /**
@@ -52,13 +37,8 @@ export async function createUsuario(userData) {
  * @returns {Promise<object>} A promise that resolves to the user object.
  */
 export async function getUsuarioById(id) {
-  try {
-    const response = await authApi.get(`/usuarios/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error(`Error fetching user ${id}:`, error);
-    throw error;
-  }
+  const response = await authApi.get(`/usuarios/${id}`);
+  return response.data;
 }
 
 /**
@@ -68,13 +48,8 @@ export async function getUsuarioById(id) {
  * @returns {Promise<object>} A promise that resolves to the updated user object.
  */
 export async function updateUsuario(id, userUpdateData) {
-  try {
-    const response = await authApi.put(`/usuarios/${id}`, userUpdateData);
-    return response.data;
-  } catch (error) {
-    console.error(`Error updating user ${id}:`, error);
-    throw error;
-  }
+  const response = await authApi.put(`/usuarios/${id}`, userUpdateData);
+  return response.data;
 }
 
 /**
@@ -83,11 +58,6 @@ export async function updateUsuario(id, userUpdateData) {
  * @returns {Promise<Array>} A promise that resolves to an array of user objects.
  */
 export async function getUsuariosByEstacion(stationId) {
-  try {
-    const response = await authApi.get(`/usuarios/by_estacion/${stationId}`);
-    return response.data;
-  } catch (error) {
-    console.error(`Error fetching users for station ${stationId}:`, error);
-    throw error;
-  }
+  const response = await authApi.get(`/usuarios/by_estacion/${stationId}`);
+  return response.data;
 }
