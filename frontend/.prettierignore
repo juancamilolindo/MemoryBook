@@ -7,3 +7,7 @@ package-lock.json
 
 # Ignore self
 .prettierignore
+
+# Ignore environment variables
+.env.development
+.env.production

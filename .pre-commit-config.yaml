@@ -15,7 +15,7 @@ repos:
     hooks:
       - id: prettier
         name: prettier
-        entry: npx prettier --write
+        entry: npx prettier --write --ignore-path frontend/.prettierignore
         language: node
         types: [text]
         files: ^frontend/
