@@ -79,4 +79,7 @@ ruff check .
 
 # Formatear el código con ruff
 ruff format .
+
+# Corregir error de sintaxis del código con ruff
+ruff check --fix
 ```
