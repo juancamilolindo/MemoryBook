@@ -1,6 +1,7 @@
-from api.api import api_router  # Importamos el router maestro
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+from .api.api import api_router  # Importamos el router maestro
 
 
 def create_app() -> FastAPI:

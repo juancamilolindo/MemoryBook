@@ -1,5 +1,6 @@
-from api.endpoints import proyectos
 from fastapi import APIRouter
+
+from .endpoints import proyectos
 
 api_router = APIRouter()
 
