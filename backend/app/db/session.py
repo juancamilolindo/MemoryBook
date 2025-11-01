@@ -14,17 +14,18 @@ print(f"DEBUG: IS_CLOUD_RUN = {IS_CLOUD_RUN}")
 connect_args_for_engine = {}
 if IS_CLOUD_RUN:
     # Conexión para Cloud Run usando Socket Unix
-    # Los argumentos de conexión se pasan a través de la query de la URL
-    connect_args = {"unix_socket": f"/cloudsql/{settings.DB_HOST_CLOUD}"}
+    # psycopg2 espera la ruta del socket Unix en el parámetro host.
+    # El sufijo .s.PGSQL.5432 es necesario para PostgreSQL.
+    unix_socket_path = f"/cloudsql/{settings.DB_HOST_CLOUD}/.s.PGSQL.5432"
     engine_url = URL.create(
         drivername="postgresql+psycopg2",
         username=settings.DB_USER,
         password=settings.DB_PASSWORD,
+        host=unix_socket_path,
         database=settings.DB_NAME,
-        query=connect_args,
     )
     print(f"DEBUG: Cloud Run engine_url: {engine_url}")
-    print(f"DEBUG: Cloud Run connect_args: {connect_args}")
+    print(f"DEBUG: Cloud Run unix_socket_path: {unix_socket_path}")
 else:
     # Conexión para desarrollo local
     engine_url = URL.create(
