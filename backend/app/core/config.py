@@ -8,7 +8,8 @@ from pydantic_settings import BaseSettings
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
 
 # Construye el nombre del archivo .env basado en el entorno
-env_file_path = f".env.{ENVIRONMENT}"
+# y lo busca en el directorio raíz del backend.
+env_file_path = f"../../.env.{ENVIRONMENT}"
 
 # Carga las variables de entorno desde el archivo correspondiente si existe
 if os.path.exists(env_file_path):
@@ -19,7 +20,7 @@ class Settings(BaseSettings):
     # Variables de la base de datos
     DB_USER: str = ""
     DB_PASSWORD: str = ""
-    DB_PORT: str = "3306"
+    DB_PORT: str = "5432"
     DB_NAME: str = ""
     DB_HOST: str = "localhost"
     DB_HOST_CLOUD: str | None = None  # El socket de Cloud Run

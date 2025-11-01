@@ -1,6 +1,6 @@
-import crud
 import models
 import schemas
+import services
 from api.dependencies import get_current_active_user, get_db
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -21,7 +21,7 @@ def create_proyecto(
     if not current_user:
         raise HTTPException(status_code=403, detail="Not authorized")
 
-    proyecto = crud.proyecto.create_proyecto(
+    proyecto = services.proyecto.create_proyecto(
         db=db,
         proyecto_in=proyecto_in,
         usuario_id=current_user.id,  # type: ignore
@@ -39,7 +39,7 @@ def get_proyecto(
     """
     Obtiene un proyecto por su ID.
     """
-    proyecto = crud.proyecto.get_proyecto(db=db, proyecto_id=proyecto_id)
+    proyecto = services.proyecto.get_proyecto(db=db, proyecto_id=proyecto_id)
     if not proyecto or proyecto.usuario_id != current_user.id:
         raise HTTPException(status_code=404, detail="Proyecto no encontrado")
     return proyecto
@@ -56,9 +56,11 @@ def update_proyecto(
     """
     Actualiza un proyecto existente.
     """
-    proyecto = crud.proyecto.get_proyecto(db=db, proyecto_id=proyecto_id)
+    proyecto = services.proyecto.get_proyecto(db=db, proyecto_id=proyecto_id)
     if not proyecto or proyecto.usuario_id != current_user.id:
         raise HTTPException(status_code=404, detail="Proyecto no encontrado")
 
-    proyecto = crud.proyecto.update_proyecto(db=db, db_obj=proyecto, obj_in=proyecto_in)
+    proyecto = services.proyecto.update_proyecto(
+        db=db, db_obj=proyecto, obj_in=proyecto_in
+    )
     return proyecto

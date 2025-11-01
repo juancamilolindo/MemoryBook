@@ -31,8 +31,7 @@ else:
         port=int(settings.DB_PORT or 5432),
         database=settings.DB_NAME,
     )
-    # Para conexiones remotas (no Cloud Run), especificamos SSL
-    connect_args_for_engine = {"ssl": {"fake_flag": True}}
+    connect_args_for_engine = {}
 
 
 # Creamos el motor de SQLAlchemy

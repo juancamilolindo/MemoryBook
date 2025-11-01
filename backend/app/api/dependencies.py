@@ -1,7 +1,7 @@
 from typing import Generator
 
-import crud
 import models
+import services
 from db.session import SessionLocal
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -18,9 +18,9 @@ def get_db() -> Generator:
 def get_current_user(db: Session = Depends(get_db)) -> models.Usuario:
     """
     Dependency for development to bypass authentication.
-    Returns the first active user found in the database by using the CRUD layer.
+    Returns the first active user found in the database by using the services layer.
     """
-    user = crud.usuario.get_first_active_user(db)
+    user = services.usuario.get_first_active_user(db)
     if not user:
         raise HTTPException(
             status_code=404,
@@ -37,9 +37,9 @@ def get_current_active_user(
 ) -> models.Usuario:
     """
     Dependency to get the current active user.
-    It checks if the user is active using the CRUD layer.
+    It checks if the user is active using the services layer.
     """
-    if not crud.usuario.is_active(current_user):
+    if not services.usuario.is_active(current_user):
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 

@@ -27,5 +27,13 @@ class Usuario(Base):
     proyectos_colaborados = relationship(
         "ProyectoColaborador", back_populates="usuario"
     )
-    fotos_subidas = relationship("Foto", back_populates="usuario_creador")
-    proyectos_creados = relationship("Proyecto", back_populates="usuario_creador")
+    fotos_subidas = relationship(
+        "Foto",
+        back_populates="usuario_creador",
+        foreign_keys="[Foto.usuario_creacion_id]",
+    )
+    proyectos_creados = relationship(
+        "Proyecto",
+        back_populates="usuario_creador",
+        foreign_keys="[Proyecto.usuario_creacion_id]",
+    )
