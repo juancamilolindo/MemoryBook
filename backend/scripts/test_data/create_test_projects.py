@@ -30,7 +30,7 @@ async def create_test_projects():
     """
     db = get_db_session()
     try:
-        logger.info("Starting project, page, and element creation...")
+        logger.info("Starting project, page, and element creation..")
 
         # --- Find or Create User ---
         user = db.query(Usuario).filter(Usuario.email == "jkm1l0@gmail.com").first()
