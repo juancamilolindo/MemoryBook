@@ -8,6 +8,8 @@ from sqlalchemy.orm import sessionmaker
 # Extraemos la lógica de si estamos en Cloud Run
 IS_CLOUD_RUN = settings.K_SERVICE is not None
 
+print(f"DEBUG: IS_CLOUD_RUN = {IS_CLOUD_RUN}")
+
 # Construimos la URL de conexión y los argumentos del motor
 connect_args_for_engine = {}
 if IS_CLOUD_RUN:
