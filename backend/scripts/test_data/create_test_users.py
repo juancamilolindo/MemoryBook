@@ -29,14 +29,16 @@ async def create_test_users():
     try:
         logger.info("Starting user creation...")
 
+        usuarioemail = "gustavosantis@gmail.com"
+
         # --- Create User ---
-        user = db.query(Usuario).filter(Usuario.email == "jkm1l0@gmail.com").first()
+        user = db.query(Usuario).filter(Usuario.email == usuarioemail).first()
         if not user:
             logger.info("Creating test user...")
             user = Usuario(
-                email="jkm1l0@gmail.com",
+                email=usuarioemail,
                 contrasena_hash="fake_password_hash",
-                nombre_completo="Juan Camilo Lindo",
+                nombre_completo="Gustavo Santis",
                 esta_activo=True,
                 esta_verificado=True,
             )
