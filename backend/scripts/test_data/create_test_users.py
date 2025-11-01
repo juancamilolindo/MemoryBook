@@ -1,17 +1,23 @@
-import asyncio
 import logging
 import os
 import sys
 
-from app.db.session import SessionLocal
-from app.models.usuario import Usuario
-
-backend_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+# --- Robust Path Setup ---
+scripts_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+backend_dir = os.path.abspath(os.path.join(scripts_dir, ".."))
+sys.path.insert(0, scripts_dir)
 sys.path.insert(0, backend_dir)
+app_dir = os.path.abspath(os.path.join(backend_dir, "app"))
+sys.path.insert(0, app_dir)
+# --- End Path Setup ---
 
+from app.models.usuario import Usuario  # noqa: E402
+from utils.get_db_session import get_db_session  # noqa: E402
 
 # Configure logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 logger = logging.getLogger(__name__)
 
 
@@ -19,7 +25,7 @@ async def create_test_users():
     """
     Populates the database with initial test users.
     """
-    db = SessionLocal()
+    db = get_db_session()
     try:
         logger.info("Starting user creation...")
 
@@ -51,5 +57,16 @@ async def create_test_users():
         logger.info("Database session closed.")
 
 
-if __name__ == "__main__":
+def main():
+    """Main function to connect to DB and run the user creation."""
+    print("--- Iniciando script de creación de usuarios de prueba ---")
+    # Since create_test_users is async, we need an event loop to run it.
+    # For a simple script, we can use asyncio.run().
+    import asyncio
+
     asyncio.run(create_test_users())
+    print("--- Finalizada script de creación de usuarios de prueba ---")
+
+
+if __name__ == "__main__":
+    main()

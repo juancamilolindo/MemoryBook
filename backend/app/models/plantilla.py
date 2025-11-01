@@ -1,8 +1,9 @@
 from db.base import Base
-from models.proyecto import TipoProyecto
 from sqlalchemy import Column, ForeignKey, Integer, String, Text
 from sqlalchemy import Enum as SAEnum
 from sqlalchemy.orm import relationship
+
+from .proyecto import TipoProyecto
 
 
 class Plantilla(Base):
