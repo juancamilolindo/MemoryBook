@@ -21,6 +21,8 @@ if IS_CLOUD_RUN:
         database=settings.DB_NAME,
         query=connect_args,
     )
+    print(f"DEBUG: Cloud Run engine_url: {engine_url}")
+    print(f"DEBUG: Cloud Run connect_args: {connect_args}")
 else:
     # Conexión para desarrollo local
     engine_url = URL.create(
