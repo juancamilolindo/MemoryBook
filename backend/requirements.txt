@@ -8,7 +8,7 @@ pydantic-settings
 pytz
 
 # Base de Datos
-PyMySQL
+psycopg2-binary
 SQLAlchemy
 alembic
 # Si los usas directamente, agrégalos aquí.

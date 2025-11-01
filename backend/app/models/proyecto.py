@@ -11,7 +11,6 @@ from sqlalchemy.sql import func
 class TipoProyecto(str, enum.Enum):
     ALBUM = "ALBUM"
     CALENDARIO = "CALENDARIO"
-    LIBRO = "LIBRO"
 
 
 class VisibilidadProyecto(str, enum.Enum):

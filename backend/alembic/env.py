@@ -1,11 +1,12 @@
+import importlib
 import os
 import sys
 from urllib.parse import quote_plus
 
 from dotenv import load_dotenv
 
-# Añade la ruta base del proyecto al sys.path para importaciones
-sys.path.insert(0, os.getcwd())
+# Añade la ruta del directorio 'app' al sys.path para que Alembic encuentre los modelos
+sys.path.insert(0, os.path.join(os.getcwd(), "app"))
 
 from logging.config import fileConfig
 
@@ -13,7 +14,7 @@ from alembic import context
 from db.base import Base  # type: ignore
 from sqlalchemy import engine_from_config, pool
 
-ENVIRONMENT = os.getenv("ENVIRONMENT", "staging")
+ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
 
 # --- INICIO DEL BLOQUE DE SEGURIDAD ---
 if ENVIRONMENT == "production":
@@ -33,8 +34,14 @@ env_file_path = f".env.{ENVIRONMENT}"
 if os.path.exists(env_file_path):
     load_dotenv(dotenv_path=env_file_path)
 
-# La metadata de la Base ahora contendrá todas las definiciones de tablas
-# porque el import de app.models cargó todos los archivos.
+
+# La ruta a 'app' ya fue añadida al sys.path anteriormente
+models_path = os.path.join(os.getcwd(), "app", "models")
+for file in os.listdir(models_path):
+    if file.endswith(".py") and not file.startswith("__"):
+        importlib.import_module(f"models.{file.replace('.py', '')}")
+
+# La metadata de la Base ahora contendrá todas las definiciones de tablas.
 target_metadata = Base.metadata
 
 config = context.config
@@ -49,12 +56,12 @@ load_dotenv()
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = quote_plus(os.getenv("DB_PASSWORD") or "")
 DB_HOST = os.getenv("DB_HOST")
-DB_PORT = os.getenv("DB_PORT")
+DB_PORT = os.getenv("DB_PORT", "5432")
 DB_NAME = os.getenv("DB_NAME")
 
 DB_PASSWORD = DB_PASSWORD.replace("%", "%%")
 database_url = (
-    f"mysql+mysqlconnector://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+    f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 )
 config.set_main_option("sqlalchemy.url", database_url)
 
