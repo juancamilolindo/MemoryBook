@@ -26,3 +26,8 @@ select = ["E", "F", "W", "I", "C90"]
 
 # Ignore some rules if needed (example)
 # ignore = ["E501"]
+
+[tool.pytest.ini_options]
+pythonpath = [
+    "backend/app"
+]

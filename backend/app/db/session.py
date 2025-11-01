@@ -15,7 +15,7 @@ if IS_CLOUD_RUN:
     # Los argumentos de conexión se pasan a través de la query de la URL
     connect_args = {"unix_socket": f"/cloudsql/{settings.DB_HOST_CLOUD}"}
     engine_url = URL.create(
-        drivername="mysql+pymysql",
+        drivername="postgresql+psycopg2",
         username=settings.DB_USER,
         password=settings.DB_PASSWORD,
         database=settings.DB_NAME,
@@ -24,11 +24,11 @@ if IS_CLOUD_RUN:
 else:
     # Conexión para desarrollo local
     engine_url = URL.create(
-        drivername="mysql+pymysql",
+        drivername="postgresql+psycopg2",
         username=settings.DB_USER,
         password=settings.DB_PASSWORD,
         host=settings.DB_HOST,
-        port=int(settings.DB_PORT),
+        port=int(settings.DB_PORT or 5432),
         database=settings.DB_NAME,
     )
     # Para conexiones remotas (no Cloud Run), especificamos SSL

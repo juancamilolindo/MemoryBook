@@ -17,10 +17,10 @@ if os.path.exists(env_file_path):
 
 class Settings(BaseSettings):
     # Variables de la base de datos
-    DB_USER: str
-    DB_PASSWORD: str
+    DB_USER: str = ""
+    DB_PASSWORD: str = ""
     DB_PORT: str = "3306"
-    DB_NAME: str
+    DB_NAME: str = ""
     DB_HOST: str = "localhost"
     DB_HOST_CLOUD: str | None = None  # El socket de Cloud Run
 
@@ -29,10 +29,6 @@ class Settings(BaseSettings):
 
     # Variable para identificar el entorno
     ENVIRONMENT: str = ENVIRONMENT
-
-    class Config:
-        # Pydantic ya no necesita gestionar el archivo, lo hacemos nosotros con dotenv
-        pass
 
 
 # Creamos una única instancia que importaremos en otros archivos

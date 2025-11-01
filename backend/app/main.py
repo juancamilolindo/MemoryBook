@@ -1,3 +1,4 @@
+from api.api import api_router  # Importamos el router maestro
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -15,6 +16,13 @@ def create_app() -> FastAPI:
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
+    )
+
+    # Incluimos el router maestro de la API
+    app.include_router(
+        api_router,
+        # Aquí podríamos añadir dependencias globales para toda la API
+        # dependencies=[Depends(deps.get_current_active_user)]
     )
 
     @app.get("/", tags=["Status"])

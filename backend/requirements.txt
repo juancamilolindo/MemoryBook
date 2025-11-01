@@ -6,6 +6,7 @@ uvicorn
 fastapi
 pydantic-settings
 pytz
+pydantic[email]
 
 # Base de Datos
 psycopg2-binary
