@@ -27,7 +27,7 @@ def create_app() -> FastAPI:
 
     @app.get("/", tags=["Status"])
     def read_root():
-        return {"message": "Welcome to the MemoryBook API"}
+        return {"message": "Welcome to the MemoryBook API 20251101 17:54"}
 
     @app.get("/health", tags=["Status"])
     def health_check():
