@@ -16,7 +16,7 @@ if IS_CLOUD_RUN:
     # Conexión para Cloud Run usando Socket Unix
     # psycopg2 espera la ruta del socket Unix en el parámetro host.
     # El sufijo .s.PGSQL.5432 es necesario para PostgreSQL.
-    unix_socket_path = f"/cloudsql/{settings.DB_HOST_CLOUD}/.s.PGSQL.5432"
+    unix_socket_path = f"/cloudsql/{settings.DB_HOST_CLOUD}"
     engine_url = URL.create(
         drivername="postgresql+psycopg2",
         username=settings.DB_USER,
