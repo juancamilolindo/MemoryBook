@@ -9,11 +9,16 @@ ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
 
 # Construye el nombre del archivo .env basado en el entorno
 # y lo busca en el directorio raíz del backend.
-env_file_path = f"../../.env.{ENVIRONMENT}"
+env_file_path = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), f"../../.env.{ENVIRONMENT}")
+)
+print(f"DEBUG: Constructed .env file path: {env_file_path}")
 
 # Carga las variables de entorno desde el archivo correspondiente si existe
 if os.path.exists(env_file_path):
+    print(f"DEBUG: Attempting to load .env from: {env_file_path}")
     load_dotenv(dotenv_path=env_file_path)
+    print(f"DEBUG: DB_USER after load_dotenv: {os.getenv('DB_USER')}")
 
 
 class Settings(BaseSettings):

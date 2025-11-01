@@ -40,7 +40,7 @@ def get_proyecto(
     Obtiene un proyecto por su ID.
     """
     proyecto = proyecto_service.get_proyecto(db=db, proyecto_id=proyecto_id)
-    if not proyecto or proyecto.usuario_id != current_user.id:
+    if not proyecto:
         raise HTTPException(status_code=404, detail="Proyecto no encontrado")
     return proyecto
 
